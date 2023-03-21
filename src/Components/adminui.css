@@ -1,0 +1,78 @@
+.paginationBtns {
+  display: flex;
+  list-style: none;
+}
+.paginationButton {
+  padding: 1rem;
+  margin: 0.5rem;
+}
+
+.MyList {
+  text-align: center;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+th,
+td {
+  border: 1px solid #ffffff;
+  text-align: left;
+  padding: 8px;
+  font-size: 1.5em;
+}
+.checked {
+  background-color: lightgray;
+}
+.unchecked {
+  background-color: rgb(230, 250, 250);
+}
+.checkbox {
+  margin: 2rem;
+}
+
+th {
+  background-color: rgb(110, 210, 250);
+}
+
+/* td {
+  background-color: rgb(205, 235, 253);
+} */
+.searchBar {
+  width: 70%;
+  margin: 1rem;
+  font-size: 2rem;
+}
+.searchTextBox {
+  font-size: 2rem;
+}
+.trash {
+  padding-left: 1rem;
+  margin-left: 1rem;
+}
+.trash:hover {
+  color: red;
+}
+.pointer:hover {
+  cursor: pointer;
+}
+.edit {
+  padding-left: 1rem;
+  margin-left: 1rem;
+}
+.edit:hover {
+  color: white;
+}
+.save {
+  margin: 1rem;
+}
+.save:hover {
+  color: darkgreen;
+}
+.saveicon {
+  padding-right: 0.5rem;
+}
+.close:hover {
+  color: peru;
+}
