@@ -144,6 +144,7 @@ export default function MyList() {
     FilterData();
   }, [searchTerm]);
 
+  //Transferred to SearchBar component
   // function handleChangeSearch(e) {
   //   setSearchTerm(e.target.value);
   //   const dataFilter = data.filter(
