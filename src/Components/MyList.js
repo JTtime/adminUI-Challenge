@@ -64,19 +64,7 @@ export default function MyList() {
     setFilteredData(newFilteredData);
     const newData = data.filter((e) => e.id !== id);
     setData(newData);
-    // const newLowestDeletedItem = Math.min(id, deletedItems.lowestDeletedItem);
-
-    // setDeletedItems({
-    //   ...deletedItems,
-    //   lowestDeletedItem: newLowestDeletedItem,
-    //   count: deletedItems.count + 1,
-    // });
-
-    //{lowestDeletedItem: {Math.min(id, deletedItems.lowestDeletedItem)}, count: deletedItems.count+1}
   };
-  // useEffect(() => {
-  //   console.log(deletedItems);
-  // }, [deletedItems]);
 
   useEffect(() => {
     // If user is on page other than 1st Page, then searching results blank list because page number is not set to 1.
