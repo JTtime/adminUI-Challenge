@@ -22,6 +22,14 @@ td {
   padding: 8px;
   font-size: 1.5em;
 }
+.actionColumnHead {
+  text-align: center;
+}
+.actionButtonsColumn {
+  display: flex;
+  justify-content: space-around;
+}
+
 .checked {
   background-color: lightgray;
 }
@@ -47,29 +55,31 @@ th {
 .searchTextBox {
   font-size: 2rem;
 }
-.trash {
-  padding-left: 1rem;
-  margin-left: 1rem;
-}
+/* .trash {
+  padding-left: 0.5em;
+} */
+/*
 .trash:hover {
   color: red;
-}
+} */
 .pointer:hover {
   cursor: pointer;
 }
-.edit {
-  padding-left: 1rem;
+/* .edit {
+  padding-left: 0.3em;
   margin-left: 1rem;
-}
+} */
+/*
 .edit:hover {
   color: white;
-}
-.save {
-  margin: 1rem;
-}
+} */
+/* .save {
+  padding-left: 0.3em;
+} */
+/* 
 .save:hover {
   color: darkgreen;
-}
+} */
 .saveicon {
   padding-right: 0.5rem;
 }

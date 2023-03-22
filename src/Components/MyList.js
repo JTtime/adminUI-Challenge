@@ -2,17 +2,13 @@ import React, { useState, useEffect, useContext } from "react";
 import { MyContext } from "./MyContext";
 import "./adminui.css";
 import Button from "@mui/material/Button";
-import DeleteIcon from "@mui/icons-material/Delete";
-import ModeEditTwoToneIcon from "@mui/icons-material/ModeEditTwoTone";
-import SaveAsSharpIcon from "@mui/icons-material/SaveAsSharp";
-import CloseSharpIcon from "@mui/icons-material/CloseSharp";
 import CancelPresentationSharpIcon from "@mui/icons-material/CancelPresentationSharp";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import { FaUserEdit } from "react-icons/fa";
 import Checkbox from "@mui/material/Checkbox";
 import TextField from "@mui/material/TextField";
 import Fab from "@mui/material/Fab";
 import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import SaveIcon from "@mui/icons-material/Save";
 
 export default function MyList() {
   const ITEMS_PER_PAGE = 10;
@@ -178,7 +174,7 @@ export default function MyList() {
             <th>Name</th>
             <th>Email</th>
             <th>Role</th>
-            <th>Actions</th>
+            <th className="actionColumnHead">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -213,13 +209,7 @@ export default function MyList() {
                           value={editedValName}
                           onChange={(e) => setEditedValName(e.target.value)}
                         /> */}
-                        {/* <OutlinedInput
-                          id="component-outlined"
-                          defaultValue="Composed TextField"
-                          label="Name"
-                          value={editedValName}
-                          onChange={(e) => setEditedValName(e.target.value)}
-                        /> */}
+
                         <TextField
                           id="outlined-helperText"
                           label="Name"
@@ -250,13 +240,7 @@ export default function MyList() {
                           value={editedValEmail}
                           onChange={(e) => setEditedValEmail(e.target.value)}
                         />     */}
-                        {/* <OutlinedInput
-                          id="component-outlined"
-                          defaultValue="Composed TextField"
-                          label="E-Mail"
-                          value={editedValEmail}
-                          onChange={(e) => setEditedValEmail(e.target.value)}
-                        /> */}
+
                         <TextField
                           id="outlined-helperText"
                           label="E-Mail"
@@ -288,13 +272,7 @@ export default function MyList() {
                           value={editedValRole}
                           onChange={(e) => setEditedValRole(e.target.value)}
                         /> */}
-                        {/* <OutlinedInput
-                          id="component-outlined"
-                          defaultValue="Composed TextField"
-                          label="Role"
-                          value={editedValRole}
-                          onChange={(e) => setEditedValRole(e.target.value)}
-                        /> */}
+
                         <TextField
                           id="outlined-helperText"
                           label="Role"
@@ -316,65 +294,58 @@ export default function MyList() {
                   </td>
 
                   {/* <td>{item.role}</td> */}
-                  <td>
+                  <td className="actionButtonsColumn">
                     {isEditing[item.id] ? (
-                      <>
+                      <span className="save">
                         {/* <button className="pointer trash" onClick={() => handleSave(item.id)}>
                           Save
                         </button> */}
-                        {/* <SaveAsSharpIcon
-                          className="pointer save"
+
+                        <Fab
+                          color="secondary"
+                          aria-label="save"
+                          className="save"
                           onClick={() => handleSave(item.id)}
-                        ></SaveAsSharpIcon> */}
-                        <Button
-                          className="pointer save"
-                          onClick={() => handleSave(item.id)}
-                          variant="outlined"
                         >
-                          <SaveAsSharpIcon className="saveicon" />
-                          Save
-                        </Button>
-                      </>
+                          <SaveIcon />
+                        </Fab>
+                      </span>
                     ) : (
-                      <>
+                      <span className="edit">
                         {/* <button onClick={() => handleEdit(item.id)}>
                           Edit
                         </button> */}
-                        {/* <ModeEditTwoToneIcon
-                          className="pointer edit"
-                          onClick={() => handleEdit(item.id)}
-                        ></ModeEditTwoToneIcon> */}
-                        {/* <FaUserEdit
-                          className="pointer edit"
-                          onClick={() => handleEdit(item.id)}
-                        /> */}
+
                         <Fab
                           color="secondary"
                           aria-label="edit"
-                          className="pointer edit"
+                          className="edit"
                           onClick={() => handleEdit(item.id)}
                         >
                           <EditIcon />
                         </Fab>
-                      </>
+                      </span>
                     )}
                     {/* <button onClick={() => handleEdit(item.id)}>Edit</button> */}
 
-                    {/* <button onClick={() => handleDelete(item.id)}>
-                      Delete
-                    </button> */}
-                    {/* <DeleteIcon
-                      className="pointer trash"
-                      onClick={() => handleDelete(item.id)}
-                    ></DeleteIcon> */}
-                    <Button
+                    {/* <Button
                       className="pointer trash"
                       onClick={() => handleDelete(item.id)}
                       variant="outlined"
                       startIcon={<DeleteIcon />}
                     >
                       Delete
-                    </Button>
+                    </Button> */}
+                    <span className="trash">
+                      <Fab
+                        color="secondary"
+                        aria-label="delete"
+                        className="trash"
+                        onClick={() => handleDelete(item.id)}
+                      >
+                        <DeleteIcon />
+                      </Fab>
+                    </span>
                   </td>
                 </tr>
               </>
