@@ -9,6 +9,7 @@ import Fab from "@mui/material/Fab";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SaveIcon from "@mui/icons-material/Save";
+import Loading from "./Loading";
 
 export default function MyList() {
   const ITEMS_PER_PAGE = 10;
@@ -31,6 +32,7 @@ export default function MyList() {
   const [editedValRole, setEditedValRole] = useState("");
   // const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState();
 
   function handleCheckChange(event, id) {
     console.log(checkedRows);
@@ -75,10 +77,13 @@ export default function MyList() {
     const data1 = await response.json();
     setFilteredData(data1);
     setData(data1);
+
     console.log(data1);
   }
   useEffect(() => {
+    setIsLoading(true);
     fetchData();
+    setIsLoading(false);
   }, []);
 
   function handleEdit(id) {
@@ -167,168 +172,177 @@ export default function MyList() {
         value={searchTerm}
         onChange={(e) => handleChangeSearch(e)}
       /> */}
-      <table>
-        <thead>
-          <tr>
-            <th>Select</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th className="actionColumnHead">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredData
-            .slice(
-              currentPage * ITEMS_PER_PAGE - ITEMS_PER_PAGE,
-              currentPage * ITEMS_PER_PAGE
-            )
-            .map((item, index) => (
-              <>
-                <tr
-                  key={item.id}
-                  className={
-                    checkedRows.includes(item.id) ? "checked" : "unchecked"
-                  }
-                >
-                  <td>
-                    {/* <input
+
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <table>
+            <thead>
+              <tr>
+                <th>Select</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th className="actionColumnHead">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredData
+                .slice(
+                  currentPage * ITEMS_PER_PAGE - ITEMS_PER_PAGE,
+                  currentPage * ITEMS_PER_PAGE
+                )
+                .map((item, index) => (
+                  <>
+                    <tr
+                      key={item.id}
+                      className={
+                        checkedRows.includes(item.id) ? "checked" : "unchecked"
+                      }
+                    >
+                      <td>
+                        {/* <input
                       type="checkbox"
                       onChange={(event) => handleCheckChange(event, item.id)}
                     /> */}
-                    <Checkbox
-                      className="checkbox"
-                      onChange={(event) => handleCheckChange(event, item.id)}
-                    />
-                  </td>
-                  <td>
-                    {isEditing[item.id] ? (
-                      <>
-                        {/* <input
+                        <Checkbox
+                          className="checkbox"
+                          onChange={(event) =>
+                            handleCheckChange(event, item.id)
+                          }
+                        />
+                      </td>
+                      <td>
+                        {isEditing[item.id] ? (
+                          <>
+                            {/* <input
                           type="text"
                           value={editedValName}
                           onChange={(e) => setEditedValName(e.target.value)}
                         /> */}
 
-                        <TextField
-                          id="outlined-helperText"
-                          label="Name"
-                          value={editedValName}
-                          onChange={(e) => setEditedValName(e.target.value)}
-                          defaultValue="UserName"
-                          helperText="User FullName"
-                        />
-                        <CancelPresentationSharpIcon
-                          className="close pointer"
-                          onClick={() => changeEditMode(item.id)}
-                        ></CancelPresentationSharpIcon>
-                        {/* <button onClick={() => handleSave(index)}>Save</button> */}
-                      </>
-                    ) : (
-                      <>
-                        <span>{item.name}</span>
-                        {/* <button onClick={() => handleEdit(index)}>Edit</button> */}
-                      </>
-                    )}
-                  </td>
-                  {/*  Email Column conditional rendering */}
-                  <td>
-                    {isEditing[item.id] ? (
-                      <>
-                        {/* <input
+                            <TextField
+                              id="outlined-helperText"
+                              label="Name"
+                              value={editedValName}
+                              onChange={(e) => setEditedValName(e.target.value)}
+                              defaultValue="UserName"
+                              helperText="User FullName"
+                            />
+                            <CancelPresentationSharpIcon
+                              className="close pointer"
+                              onClick={() => changeEditMode(item.id)}
+                            ></CancelPresentationSharpIcon>
+                            {/* <button onClick={() => handleSave(index)}>Save</button> */}
+                          </>
+                        ) : (
+                          <>
+                            <span>{item.name}</span>
+                            {/* <button onClick={() => handleEdit(index)}>Edit</button> */}
+                          </>
+                        )}
+                      </td>
+                      {/*  Email Column conditional rendering */}
+                      <td>
+                        {isEditing[item.id] ? (
+                          <>
+                            {/* <input
                           type="text"
                           value={editedValEmail}
                           onChange={(e) => setEditedValEmail(e.target.value)}
                         />     */}
 
-                        <TextField
-                          id="outlined-helperText"
-                          label="E-Mail"
-                          value={editedValEmail}
-                          onChange={(e) => setEditedValEmail(e.target.value)}
-                          defaultValue="E-mail ID"
-                          helperText="User Official Mail ID"
-                        />
-                        <CancelPresentationSharpIcon
-                          className="close pointer"
-                          onClick={() => changeEditMode(item.id)}
-                        ></CancelPresentationSharpIcon>
-                      </>
-                    ) : (
-                      <>
-                        <span>{item.email}</span>
-                      </>
-                    )}
-                  </td>
+                            <TextField
+                              id="outlined-helperText"
+                              label="E-Mail"
+                              value={editedValEmail}
+                              onChange={(e) =>
+                                setEditedValEmail(e.target.value)
+                              }
+                              defaultValue="E-mail ID"
+                              helperText="User Official Mail ID"
+                            />
+                            <CancelPresentationSharpIcon
+                              className="close pointer"
+                              onClick={() => changeEditMode(item.id)}
+                            ></CancelPresentationSharpIcon>
+                          </>
+                        ) : (
+                          <>
+                            <span>{item.email}</span>
+                          </>
+                        )}
+                      </td>
 
-                  {/* // <td>{item.email}</td> */}
+                      {/* // <td>{item.email}</td> */}
 
-                  {/*  Role Column conditional rendering */}
-                  <td>
-                    {isEditing[item.id] ? (
-                      <>
-                        {/* <input
+                      {/*  Role Column conditional rendering */}
+                      <td>
+                        {isEditing[item.id] ? (
+                          <>
+                            {/* <input
                           type="text"
                           value={editedValRole}
                           onChange={(e) => setEditedValRole(e.target.value)}
                         /> */}
 
-                        <TextField
-                          id="outlined-helperText"
-                          label="Role"
-                          value={editedValRole}
-                          onChange={(e) => setEditedValRole(e.target.value)}
-                          defaultValue="UserName"
-                          helperText="User Role in Organisation"
-                        />
-                        <CancelPresentationSharpIcon
-                          className="close pointer"
-                          onClick={() => changeEditMode(item.id)}
-                        ></CancelPresentationSharpIcon>
-                      </>
-                    ) : (
-                      <>
-                        <span>{item.role}</span>
-                      </>
-                    )}
-                  </td>
+                            <TextField
+                              id="outlined-helperText"
+                              label="Role"
+                              value={editedValRole}
+                              onChange={(e) => setEditedValRole(e.target.value)}
+                              defaultValue="UserName"
+                              helperText="User Role in Organisation"
+                            />
+                            <CancelPresentationSharpIcon
+                              className="close pointer"
+                              onClick={() => changeEditMode(item.id)}
+                            ></CancelPresentationSharpIcon>
+                          </>
+                        ) : (
+                          <>
+                            <span>{item.role}</span>
+                          </>
+                        )}
+                      </td>
 
-                  {/* <td>{item.role}</td> */}
-                  <td className="actionButtonsColumn">
-                    {isEditing[item.id] ? (
-                      <span className="save">
-                        {/* <button className="pointer trash" onClick={() => handleSave(item.id)}>
+                      {/* <td>{item.role}</td> */}
+                      <td className="actionButtonsColumn">
+                        {isEditing[item.id] ? (
+                          <span className="save">
+                            {/* <button className="pointer trash" onClick={() => handleSave(item.id)}>
                           Save
                         </button> */}
 
-                        <Fab
-                          color="secondary"
-                          aria-label="save"
-                          className="save"
-                          onClick={() => handleSave(item.id)}
-                        >
-                          <SaveIcon />
-                        </Fab>
-                      </span>
-                    ) : (
-                      <span className="edit">
-                        {/* <button onClick={() => handleEdit(item.id)}>
+                            <Fab
+                              color="secondary"
+                              aria-label="save"
+                              className="save"
+                              onClick={() => handleSave(item.id)}
+                            >
+                              <SaveIcon />
+                            </Fab>
+                          </span>
+                        ) : (
+                          <span className="edit">
+                            {/* <button onClick={() => handleEdit(item.id)}>
                           Edit
                         </button> */}
 
-                        <Fab
-                          color="secondary"
-                          aria-label="edit"
-                          className="edit"
-                          onClick={() => handleEdit(item.id)}
-                        >
-                          <EditIcon />
-                        </Fab>
-                      </span>
-                    )}
-                    {/* <button onClick={() => handleEdit(item.id)}>Edit</button> */}
+                            <Fab
+                              color="secondary"
+                              aria-label="edit"
+                              className="edit"
+                              onClick={() => handleEdit(item.id)}
+                            >
+                              <EditIcon />
+                            </Fab>
+                          </span>
+                        )}
+                        {/* <button onClick={() => handleEdit(item.id)}>Edit</button> */}
 
-                    {/* <Button
+                        {/* <Button
                       className="pointer trash"
                       onClick={() => handleDelete(item.id)}
                       variant="outlined"
@@ -336,36 +350,38 @@ export default function MyList() {
                     >
                       Delete
                     </Button> */}
-                    <span className="trash">
-                      <Fab
-                        color="secondary"
-                        aria-label="delete"
-                        className="trash"
-                        onClick={() => handleDelete(item.id)}
-                      >
-                        <DeleteIcon />
-                      </Fab>
-                    </span>
-                  </td>
-                </tr>
-              </>
-            ))}
-        </tbody>
-      </table>
-      <ul className="paginationBtns">
-        {pageNumbers.map((number, index) => {
-          return (
-            <li key={number}>
-              <button
-                className="paginationButton"
-                onClick={() => setCurrentPage(number)}
-              >
-                {number}
-              </button>
-            </li>
-          );
-        })}
-      </ul>
+                        <span className="trash">
+                          <Fab
+                            color="secondary"
+                            aria-label="delete"
+                            className="trash"
+                            onClick={() => handleDelete(item.id)}
+                          >
+                            <DeleteIcon />
+                          </Fab>
+                        </span>
+                      </td>
+                    </tr>
+                  </>
+                ))}
+            </tbody>
+          </table>
+          <ul className="paginationBtns">
+            {pageNumbers.map((number, index) => {
+              return (
+                <li key={number}>
+                  <button
+                    className="paginationButton"
+                    onClick={() => setCurrentPage(number)}
+                  >
+                    {number}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </>
+      )}
     </div>
   );
 }
