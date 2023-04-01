@@ -165,7 +165,7 @@ This data is fetched from API endpoint provided by Geektrust: https://geektrust.
 Features on this app and their usage:
 
 
-_For detail regarding features and their usage, please refer to the [Documentation](https://wordfiletobeupload.com)_
+_For detail regarding features and their usage, please refer to the [Documentation](https://github.com/JTtime/adminUI-Challenge/blob/main/public/Usage-Documentation.docx)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
