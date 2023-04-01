@@ -10,6 +10,11 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SaveIcon from "@mui/icons-material/Save";
 import Loading from "./Loading";
+import { TbChevronsLeft } from "react-icons/tb";
+import { TbChevronLeft } from "react-icons/tb";
+import { TbChevronRight } from "react-icons/tb";
+import { TbChevronsRight } from "react-icons/tb";
+import { Diversity1Sharp } from "@mui/icons-material";
 
 export default function MyList() {
   const ITEMS_PER_PAGE = 10;
@@ -77,6 +82,7 @@ export default function MyList() {
     setCurrentPage(number);
     setCheckedRows([]);
     setIsSelectedAll(false);
+
     // settingDataView();
   }
 
@@ -411,7 +417,7 @@ export default function MyList() {
                     >
                       Delete
                     </Button> */}
-                        <span className="trash">
+                        <div className="trash">
                           <Fab
                             color="secondary"
                             aria-label="delete"
@@ -420,7 +426,7 @@ export default function MyList() {
                           >
                             <DeleteIcon />
                           </Fab>
-                        </span>
+                        </div>
                       </td>
                     </tr>
                   </>
@@ -428,16 +434,42 @@ export default function MyList() {
             </tbody>
           </table>
           <div className="footer">
-            <span className="deleteSelected">
-              <button onClick={deleteMultiple}>Delete Selected</button>
-            </span>
+            <div>
+              <button className="deleteSelected" onClick={deleteMultiple}>
+                Delete Selected
+              </button>
+            </div>
 
             <ul className="paginationBtns">
+              <li>
+                <div
+                  className="firstPage paginationButton"
+                  onClick={() => setCurrentPage(1)}
+                >
+                  <TbChevronsLeft />{" "}
+                </div>
+              </li>
+              <li>
+                <div
+                  className="prevPage paginationButton"
+                  onClick={() =>
+                    currentPage !== 1
+                      ? setCurrentPage(currentPage - 1)
+                      : setCurrentPage(1)
+                  }
+                >
+                  <TbChevronLeft />
+                </div>
+              </li>
               {pageNumbers.map((number, index) => {
                 return (
                   <li key={number}>
                     <button
-                      className="paginationButton"
+                      className={
+                        currentPage == number
+                          ? "activePage paginationButton"
+                          : "inactivePage paginationButton"
+                      }
                       onClick={() => handlePageChange(number)}
                     >
                       {number}
@@ -445,6 +477,26 @@ export default function MyList() {
                   </li>
                 );
               })}
+              <li>
+                <div
+                  className="nextPage paginationButton"
+                  onClick={() =>
+                    currentPage !== totalPages
+                      ? setCurrentPage(currentPage + 1)
+                      : setCurrentPage(totalPages)
+                  }
+                >
+                  <TbChevronRight />{" "}
+                </div>
+              </li>
+              <li>
+                <div
+                  className="lastPage paginationButton"
+                  onClick={() => setCurrentPage(totalPages)}
+                >
+                  <TbChevronsRight />
+                </div>
+              </li>
             </ul>
           </div>
         </>

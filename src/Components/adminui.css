@@ -1,12 +1,3 @@
-.paginationBtns {
-  display: flex;
-  list-style: none;
-}
-.paginationButton {
-  padding: 1rem;
-  margin: 0.5rem;
-}
-
 .MyList {
   text-align: center;
 }
@@ -90,6 +81,31 @@ th {
   display: flex;
 }
 .deleteSelected {
+  padding: 0.7rem;
+  margin: 1.5rem;
+  background-color: #ee99ee;
+  border-radius: 6em;
+}
+.paginationBtns {
+  display: flex;
+  list-style: none;
+}
+.paginationButton {
   padding: 1rem;
   margin: 0.5rem;
+  border-radius: 6em;
+
+  cursor: pointer;
+}
+.activePage {
+  background-color: darkgreen;
+}
+.inactivePage {
+  background-color: #007fff;
+}
+.firstPage,
+.nextPage,
+.prevPage,
+.lastPage {
+  background-color: #007fff;
 }
