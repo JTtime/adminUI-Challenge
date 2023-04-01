@@ -33,14 +33,51 @@ export default function MyList() {
   // const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState();
+  const [pageData, setPageData] = useState([]);
+  const [isSelectedAll, setIsSelectedAll] = useState(false);
 
   function handleCheckChange(event, id) {
+    setIsSelectedAll(false);
     console.log(checkedRows);
     if (event.target.checked) {
+      // id.checkStatus = true;
       setCheckedRows([...checkedRows, id]);
     } else {
       setCheckedRows(checkedRows.filter((i) => i !== id));
     }
+  }
+  function handleCheckAll(event, name) {
+    setIsSelectedAll(!isSelectedAll);
+    console.log(event);
+    if (event.target.checked) {
+      const dataView = filteredData.slice(
+        currentPage * ITEMS_PER_PAGE - ITEMS_PER_PAGE,
+        currentPage * ITEMS_PER_PAGE
+      );
+      const checkVisibleData = dataView.map((item) => item.id);
+      // setPageData(dataView);
+      // setCheckedRows(filteredData.map((item) => item.id));
+      setCheckedRows(checkVisibleData);
+    } else {
+      setCheckedRows([]);
+    }
+  }
+
+  function deleteMultiple() {
+    const newFilteredData = filteredData.filter(
+      (e) => !checkedRows.includes(e.id)
+    );
+    setFilteredData(newFilteredData);
+    const newData = data.filter((e) => !checkedRows.includes(e.id));
+    setData(newData);
+    setIsSelectedAll(false);
+  }
+
+  function handlePageChange(number) {
+    setCurrentPage(number);
+    setCheckedRows([]);
+    setIsSelectedAll(false);
+    // settingDataView();
   }
 
   // const handleDelete = (id) => {
@@ -145,6 +182,20 @@ export default function MyList() {
     FilterData();
   }, [searchTerm]);
 
+  // useEffect(() => {
+  //   setCurrentPage(1);
+  //   settingDataView();
+  //   console.log(pageData);
+  // }, []);
+
+  // function settingDataView() {
+  //   const dataView = filteredData.slice(
+  //     currentPage * ITEMS_PER_PAGE - ITEMS_PER_PAGE,
+  //     currentPage * ITEMS_PER_PAGE
+  //   );
+  //   setPageData(dataView);
+  // }
+
   //Transferred to SearchBar component
   // function handleChangeSearch(e) {
   //   setSearchTerm(e.target.value);
@@ -180,7 +231,15 @@ export default function MyList() {
           <table>
             <thead>
               <tr>
-                <th>Select</th>
+                <th>
+                  {" "}
+                  <Checkbox
+                    className="checkbox"
+                    name="selectAll"
+                    checked={isSelectedAll}
+                    onChange={(event) => handleCheckAll(event)}
+                  />
+                </th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Role</th>
@@ -208,6 +267,8 @@ export default function MyList() {
                     /> */}
                         <Checkbox
                           className="checkbox"
+                          name={item.name}
+                          checked={checkedRows.includes(item.id)}
                           onChange={(event) =>
                             handleCheckChange(event, item.id)
                           }
@@ -366,20 +427,26 @@ export default function MyList() {
                 ))}
             </tbody>
           </table>
-          <ul className="paginationBtns">
-            {pageNumbers.map((number, index) => {
-              return (
-                <li key={number}>
-                  <button
-                    className="paginationButton"
-                    onClick={() => setCurrentPage(number)}
-                  >
-                    {number}
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
+          <div className="footer">
+            <span className="deleteSelected">
+              <button onClick={deleteMultiple}>Delete Selected</button>
+            </span>
+
+            <ul className="paginationBtns">
+              {pageNumbers.map((number, index) => {
+                return (
+                  <li key={number}>
+                    <button
+                      className="paginationButton"
+                      onClick={() => handlePageChange(number)}
+                    >
+                      {number}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </>
       )}
     </div>
