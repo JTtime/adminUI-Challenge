@@ -1,6 +1,9 @@
 import { useState, useEffect, useContext } from "react";
 import { MyContext } from "./MyContext";
+import Loading from "./Loading";
 import "./adminui.css";
+
+/*UI Design framework (materialUI) imports below */
 import Button from "@mui/material/Button";
 import CancelPresentationSharpIcon from "@mui/icons-material/CancelPresentationSharp";
 import Checkbox from "@mui/material/Checkbox";
@@ -9,9 +12,9 @@ import Fab from "@mui/material/Fab";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SaveIcon from "@mui/icons-material/Save";
-import Loading from "./Loading";
 
 export default function MyList() {
+  /*States and variable imported from MyContext - Global States */
   const {
     data,
     setData,
@@ -28,6 +31,7 @@ export default function MyList() {
     ITEMS_PER_PAGE,
   } = useContext(MyContext);
 
+  /*Local States */
   const [isEditing, setIsEditing] = useState({});
   const [editedValName, setEditedValName] = useState("");
   const [editedValEmail, setEditedValEmail] = useState("");
