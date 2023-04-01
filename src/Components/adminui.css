@@ -1,3 +1,22 @@
+/*General purpose Pointer class, if you need only pointer cursor on hover, just add pointer as ClassName*/
+
+.pointer:hover {
+  cursor: pointer;
+}
+
+/*Formatting CSS for Search Text Box*/
+
+.searchBar {
+  width: 70%;
+  margin: 1rem;
+  font-size: 2rem;
+}
+.searchTextBox {
+  font-size: 2rem;
+}
+
+/*Formatting CSS for Table*/
+
 .MyList {
   text-align: center;
 }
@@ -13,6 +32,11 @@ td {
   padding: 8px;
   font-size: 1.5em;
 }
+
+th {
+  background-color: rgb(110, 210, 250);
+}
+
 .actionColumnHead {
   text-align: center;
 }
@@ -20,6 +44,12 @@ td {
   display: flex;
   justify-content: space-around;
 }
+
+/* td {
+  background-color: rgb(205, 235, 253);
+} */
+
+/*Interactive buttons on table like Save, Close, checkbox*/
 
 .checked {
   background-color: lightgray;
@@ -31,61 +61,31 @@ td {
   margin: 2rem;
 }
 
-th {
-  background-color: rgb(110, 210, 250);
-}
-
-/* td {
-  background-color: rgb(205, 235, 253);
-} */
-.searchBar {
-  width: 70%;
-  margin: 1rem;
-  font-size: 2rem;
-}
-.searchTextBox {
-  font-size: 2rem;
-}
-/* .trash {
-  padding-left: 0.5em;
-} */
-/*
-.trash:hover {
-  color: red;
-} */
-.pointer:hover {
-  cursor: pointer;
-}
-/* .edit {
-  padding-left: 0.3em;
-  margin-left: 1rem;
-} */
-/*
-.edit:hover {
-  color: white;
-} */
-/* .save {
-  padding-left: 0.3em;
-} */
-/* 
-.save:hover {
-  color: darkgreen;
-} */
 .saveicon {
   padding-right: 0.5rem;
 }
 .close:hover {
   color: peru;
 }
+
+/*Formatting CSS for Footer buttons - Delete Selected and Pagination Buttons*/
+
 .footer {
   display: flex;
 }
+
 .deleteSelected {
   padding: 0.7rem;
   margin: 1.5rem;
   background-color: #ee99ee;
   border-radius: 6em;
 }
+
+.deleteSelected:hover {
+  cursor: pointer;
+  background-color: red;
+}
+
 .paginationBtns {
   display: flex;
   list-style: none;
@@ -94,9 +94,13 @@ th {
   padding: 1rem;
   margin: 0.5rem;
   border-radius: 6em;
-
-  cursor: pointer;
 }
+
+.paginationButton:hover {
+  cursor: pointer;
+  background-color: greenyellow;
+}
+
 .activePage {
   background-color: darkgreen;
 }

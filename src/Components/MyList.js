@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { MyContext } from "./MyContext";
 import "./adminui.css";
 import Button from "@mui/material/Button";
@@ -10,14 +10,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SaveIcon from "@mui/icons-material/Save";
 import Loading from "./Loading";
-import { TbChevronsLeft } from "react-icons/tb";
-import { TbChevronLeft } from "react-icons/tb";
-import { TbChevronRight } from "react-icons/tb";
-import { TbChevronsRight } from "react-icons/tb";
-import { Diversity1Sharp } from "@mui/icons-material";
 
 export default function MyList() {
-  const ITEMS_PER_PAGE = 10;
   const {
     data,
     setData,
@@ -25,21 +19,30 @@ export default function MyList() {
     setSearchTerm,
     filteredData,
     setFilteredData,
+    currentPage,
+    setCurrentPage,
+    checkedRows,
+    setCheckedRows,
+    isSelectedAll,
+    setIsSelectedAll,
+    ITEMS_PER_PAGE,
   } = useContext(MyContext);
-  //filteredData shifted to searchBar after refactoring for contextAPI
-  // const [filteredData, setFilteredData] = useState([]);
 
   const [isEditing, setIsEditing] = useState({});
-  const [checkedRows, setCheckedRows] = useState([]);
-  // const [editedValue, setEditedValue] = useState("");
   const [editedValName, setEditedValName] = useState("");
   const [editedValEmail, setEditedValEmail] = useState("");
   const [editedValRole, setEditedValRole] = useState("");
-  // const [searchTerm, setSearchTerm] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState();
-  const [pageData, setPageData] = useState([]);
-  const [isSelectedAll, setIsSelectedAll] = useState(false);
+
+  //following commented states shifted to App.js after refactoring for contextAPI and required states imported via useContext()
+
+  // const [filteredData, setFilteredData] = useState([]);
+  // const [checkedRows, setCheckedRows] = useState([]);
+  // const [editedValue, setEditedValue] = useState("");
+  // const [searchTerm, setSearchTerm] = useState("");
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [isSelectedAll, setIsSelectedAll] = useState(false);
+  // const ITEMS_PER_PAGE = 10;
 
   function handleCheckChange(event, id) {
     setIsSelectedAll(false);
@@ -60,7 +63,6 @@ export default function MyList() {
         currentPage * ITEMS_PER_PAGE
       );
       const checkVisibleData = dataView.map((item) => item.id);
-      // setPageData(dataView);
       // setCheckedRows(filteredData.map((item) => item.id));
       setCheckedRows(checkVisibleData);
     } else {
@@ -76,14 +78,6 @@ export default function MyList() {
     const newData = data.filter((e) => !checkedRows.includes(e.id));
     setData(newData);
     setIsSelectedAll(false);
-  }
-
-  function handlePageChange(number) {
-    setCurrentPage(number);
-    setCheckedRows([]);
-    setIsSelectedAll(false);
-
-    // settingDataView();
   }
 
   // const handleDelete = (id) => {
@@ -188,20 +182,6 @@ export default function MyList() {
     FilterData();
   }, [searchTerm]);
 
-  // useEffect(() => {
-  //   setCurrentPage(1);
-  //   settingDataView();
-  //   console.log(pageData);
-  // }, []);
-
-  // function settingDataView() {
-  //   const dataView = filteredData.slice(
-  //     currentPage * ITEMS_PER_PAGE - ITEMS_PER_PAGE,
-  //     currentPage * ITEMS_PER_PAGE
-  //   );
-  //   setPageData(dataView);
-  // }
-
   //Transferred to SearchBar component
   // function handleChangeSearch(e) {
   //   setSearchTerm(e.target.value);
@@ -214,8 +194,8 @@ export default function MyList() {
   //   setFilteredData(dataFilter);
   // }
 
-  const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
-  const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
+  //Codes without using Design Frameworks are kept as it is in comments at required places
+  //In case, Code need to be shift back to Pure React Codes, just deleting MUI or framework icons and uncommenting old codes will be sufficient
 
   return (
     <div className="MyList">
@@ -409,14 +389,6 @@ export default function MyList() {
                         )}
                         {/* <button onClick={() => handleEdit(item.id)}>Edit</button> */}
 
-                        {/* <Button
-                      className="pointer trash"
-                      onClick={() => handleDelete(item.id)}
-                      variant="outlined"
-                      startIcon={<DeleteIcon />}
-                    >
-                      Delete
-                    </Button> */}
                         <div className="trash">
                           <Fab
                             color="secondary"
@@ -434,70 +406,11 @@ export default function MyList() {
             </tbody>
           </table>
           <div className="footer">
-            <div>
+            <span>
               <button className="deleteSelected" onClick={deleteMultiple}>
                 Delete Selected
               </button>
-            </div>
-
-            <ul className="paginationBtns">
-              <li>
-                <div
-                  className="firstPage paginationButton"
-                  onClick={() => setCurrentPage(1)}
-                >
-                  <TbChevronsLeft />{" "}
-                </div>
-              </li>
-              <li>
-                <div
-                  className="prevPage paginationButton"
-                  onClick={() =>
-                    currentPage !== 1
-                      ? setCurrentPage(currentPage - 1)
-                      : setCurrentPage(1)
-                  }
-                >
-                  <TbChevronLeft />
-                </div>
-              </li>
-              {pageNumbers.map((number, index) => {
-                return (
-                  <li key={number}>
-                    <button
-                      className={
-                        currentPage == number
-                          ? "activePage paginationButton"
-                          : "inactivePage paginationButton"
-                      }
-                      onClick={() => handlePageChange(number)}
-                    >
-                      {number}
-                    </button>
-                  </li>
-                );
-              })}
-              <li>
-                <div
-                  className="nextPage paginationButton"
-                  onClick={() =>
-                    currentPage !== totalPages
-                      ? setCurrentPage(currentPage + 1)
-                      : setCurrentPage(totalPages)
-                  }
-                >
-                  <TbChevronRight />{" "}
-                </div>
-              </li>
-              <li>
-                <div
-                  className="lastPage paginationButton"
-                  onClick={() => setCurrentPage(totalPages)}
-                >
-                  <TbChevronsRight />
-                </div>
-              </li>
-            </ul>
+            </span>
           </div>
         </>
       )}
