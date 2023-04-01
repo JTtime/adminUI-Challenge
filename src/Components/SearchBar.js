@@ -1,17 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { MyContext } from "./MyContext";
 import "./adminui.css";
 import TextField from "@mui/material/TextField";
 
 export default function SearchBar() {
-  const {
-    data,
-    setData,
-    searchTerm,
-    setSearchTerm,
-    filteredData,
-    setFilteredData,
-  } = useContext(MyContext);
+  /*States and variable imported from MyContext - Global States */
+  const { data, searchTerm, setSearchTerm, filteredData, setFilteredData } =
+    useContext(MyContext);
 
   function handleChangeSearch(e) {
     setSearchTerm(e.target.value);

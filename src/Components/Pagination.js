@@ -7,17 +7,13 @@ import { TbChevronRight } from "react-icons/tb";
 import { TbChevronsRight } from "react-icons/tb";
 
 export default function Pagination() {
+    /*States and variable imported from MyContext - Global States */
   const {
-    data,
-    setData,
-    searchTerm,
-    setSearchTerm,
     filteredData,
-    setFilteredData,
     currentPage,
     setCurrentPage,
-    checkedRows,
-    setCheckedRows, isSelectedAll, setIsSelectedAll,
+    setCheckedRows,
+    setIsSelectedAll,
     ITEMS_PER_PAGE,
   } = useContext(MyContext);
 
